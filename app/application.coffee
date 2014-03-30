@@ -1,3 +1,6 @@
+# Testing...
+TestModel = require 'testing/random-testing/model-test'
+
 QuestModel = require 'models/quest-model'
 QuestView = require 'views/quest-view'
 
