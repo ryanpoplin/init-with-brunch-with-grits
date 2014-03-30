@@ -1,15 +1,15 @@
-TodoModel = require 'models/todo-model'
-TodoView = require 'views/todo-view'
+QuestModel = require 'models/quest-model'
+QuestView = require 'views/quest-view'
 
 class Application extends Backbone.Marionette.Application
   initialize: =>
   	@on 'initialize:after', @startHistory
 
-  	aTodo = new TodoModel title: 'Todo 1...'
-  	aTodoView = new TodoView model: aTodo
+  	aQuest = new QuestModel title: 'Quest One...'
+  	aQuestView = new QuestView model: aQuest
 
   	# Temp...
-  	aTodoView.render()
+  	aQuestView.render()
 
     # @addRegions mainRegion: '#main'
     # @mainRegion.show view
