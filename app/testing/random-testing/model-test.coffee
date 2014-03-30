@@ -3,3 +3,5 @@ module.exports = class TestModel extends Backbone.Model
 		name: 'Testing Model...'
 	initialize: ->
 		console.log 'TestModel init...'
+
+aTestModel = new TestModel

@@ -6,18 +6,18 @@ QuestView = require 'views/quest-view'
 
 class Application extends Backbone.Marionette.Application
   initialize: =>
-  	@on 'initialize:after', @startHistory
+    @on 'initialize:after', @startHistory
 
-  	aQuest = new QuestModel title: 'Quest One...'
-  	aQuestView = new QuestView model: aQuest
+    aQuest = new QuestModel title: 'Quest One...'
+    aQuestView = new QuestView model: aQuest
 
-  	# Temp...
-  	aQuestView.render()
+    # Temp...
+    aQuestView.render()
 
     # @addRegions mainRegion: '#main'
     # @mainRegion.show view
 
-  	@start()
+    @start()
 
   startHistory: (options) => Backbone.history.start()
 
