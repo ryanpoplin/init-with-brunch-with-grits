@@ -1,9 +1,14 @@
+# Backbone.js Cookbook's Example Application...
+# I have changed a few things up, and it's in CoffeeScript with the Brunch and Grits Skeleton...
+
 module.exports = 
 
 InvoiceItemModel = Backbone.Model.extend
 	defaults: 
+		date: new Date()
+		description: 'Something Tech Related...'
 		price: 0
-		quantity: 0
+		quantity: 1
 	calculateAmount: ->
 		@get('price') * @get('quantity')
 
@@ -11,6 +16,8 @@ PreviewInvoiceItemView = Backbone.View.extend
 	template: require 'templates/preview-invoice-item-template'
 	render: ->
 		html = @template({
+			description: @model.get 'description'
+			date: @model.get 'date'
 			price: @model.get 'price'
 			quantity: @model.get 'quantity'
 			amount: @model.calculateAmount()
@@ -49,12 +56,23 @@ Workspace = Backbone.Router.extend
 		invoicePageView.render(invoicePageId)
 	previewInvoice: ->
 		invoiceItemModel = new InvoiceItemModel
-			price: 2
-			quantity: 3
+			date: new Date()
+			description: 'Web App Development...'
+			price: 2000
+			quantity: 1
+		invoiceItemModel2 = new InvoiceItemModel
+			price: 500
+			quantity: 5
+		console.log invoiceItemModel2.toJSON()
+		# Testing...
+		newModel = invoiceItemModel.clone()
+		console.log newModel
 		previewInvoiceItemView = new PreviewInvoiceItemView
-			model: invoiceItemModel
+			model: invoiceItemModel2
 			el: $('#main')
 		previewInvoiceItemView.render()
+		# Testing...
+		console.log invoiceItemModel.toJSON()
 
 $ ->
 	
