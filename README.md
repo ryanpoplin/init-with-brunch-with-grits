@@ -1,6 +1,14 @@
 Brunch With Grits
 =================
 
+* Poplinr's Notes...
+
+* Many of the testing application examples in this repo are from the Backbone.js Cookbook from Packt Publishing:
+
+http://www.packtpub.com/backbonejs-mvc-rest-cookbook/book
+
+* It's the best book on Backbone as far as I am concerned...
+
 What is this project?
 --------------------
 
