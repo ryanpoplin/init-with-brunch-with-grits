@@ -1,5 +1,4 @@
-# require...
-
+BackboneTesting = require 'testing/backbone-testing/backbone-testing-app'
 
 class Application extends Backbone.Marionette.Application
   initialize: =>
