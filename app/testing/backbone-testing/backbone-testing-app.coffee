@@ -17,14 +17,45 @@ PreviewInvoiceItemView = Backbone.View.extend
 		})
 		$(@el).html html
 
+InvoiceListView = Backbone.View.extend
+	template: require 'templates/invoice-list-view-template'
+	render: ->
+		html = @template
+		$(@el).html html
+
+InvoicePageView = Backbone.View.extend
+	template: require 'templates/invoice-page-view-template'
+	render: (id) ->
+		html = @template({
+			id: id
+		})
+		$(@el).html html
+
+Workspace = Backbone.Router.extend
+	routes: 
+		'': 'invoiceList'
+		'invoice': 'invoiceList'
+		'invoice/:id': 'invoicePage'
+		'previewInvoice': 'previewInvoice'
+	invoiceList: ->
+		invoiceListView = new InvoiceListView
+			el: $('#main')
+		invoiceListView.render()
+	invoicePage: (id) ->
+		invoicePageView = new InvoicePageView
+			el: $('#main')
+			id: id
+		invoicePageId = invoicePageView.id
+		invoicePageView.render(invoicePageId)
+	previewInvoice: ->
+		invoiceItemModel = new InvoiceItemModel
+			price: 2
+			quantity: 3
+		previewInvoiceItemView = new PreviewInvoiceItemView
+			model: invoiceItemModel
+			el: $('#main')
+		previewInvoiceItemView.render()
+
 $ ->
-
-	invoiceItemModel = new InvoiceItemModel
-		price: 2
-		quantity: 3
-
-	previewInvoiceItemView = new PreviewInvoiceItemView
-		model: invoiceItemModel
-		el: $('#main')
-
-	previewInvoiceItemView.render()
+	
+	new Workspace()
