@@ -64,6 +64,11 @@ Workspace = Backbone.Router.extend
 			price: 500
 			quantity: 5
 		console.log invoiceItemModel2.toJSON()
+		# Cheap commit...
+		invoiceItemModel3 = new InvoiceItemModel
+			price: 2500
+			quantity: 2
+		console.log invoiceItemModel3.toJSON()
 		# Testing...
 		newModel = invoiceItemModel.clone()
 		console.log newModel
