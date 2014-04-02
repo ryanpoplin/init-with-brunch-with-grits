@@ -1,5 +1,6 @@
-# Backbone.js Cookbook's Example Application...
-# I have changed a few things up, and it's in CoffeeScript with the Brunch and Grits Skeleton...
+QuestListModel = require 'models/quest-list-model'
+QuestListCollection = require 'collections/quest-list-collection'
+QuestListView = require 'views/quest-list-view'
 
 module.exports = 
 
@@ -40,10 +41,17 @@ InvoicePageView = Backbone.View.extend
 
 Workspace = Backbone.Router.extend
 	routes: 
-		'': 'invoiceList'
+		'': 'questList'
+		# '': 'invoiceList'
 		'invoice': 'invoiceList'
 		'invoice/:id': 'invoicePage'
 		'previewInvoice': 'previewInvoice'
+	questList: ->
+		questListModel = QuestListModel
+			
+		questListView = new QuestListView 
+			el: $('#main')
+		questListView.render()
 	invoiceList: ->
 		invoiceListView = new InvoiceListView
 			el: $('#main')
@@ -52,6 +60,7 @@ Workspace = Backbone.Router.extend
 		invoicePageView = new InvoicePageView
 			el: $('#main')
 			id: id
+		# ...
 		invoicePageId = invoicePageView.id
 		invoicePageView.render(invoicePageId)
 	previewInvoice: ->
