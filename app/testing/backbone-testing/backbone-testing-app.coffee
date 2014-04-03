@@ -1,8 +1,12 @@
+# Include Questalot stuff...
+
 QuestListModel = require 'models/quest-list-model'
 QuestListCollection = require 'collections/quest-list-collection'
 QuestListView = require 'views/quest-list-view'
 
 module.exports = 
+
+# The Billing App...
 
 InvoiceItemModel = Backbone.Model.extend
 	defaults: 
@@ -39,19 +43,97 @@ InvoicePageView = Backbone.View.extend
 		})
 		$(@el).html html
 
+# Questalot's Backbone and Parse Prototype...
+
+# Message...
+
+Message = Parse.Object.extend
+	className: 'MessageBoard'
+
+# Collection...
+
+MessageBoard = Parse.Collection.extend
+	model: Message
+
+# HeaderView...
+
+HeaderView = Backbone.View.extend
+	el: '#primary-header'
+	template: require 'templates/questalot-header-template'
+	initialize: ->
+		# ...
+	render: ->
+		html = @template
+		$(@el).html html
+
+# HomeView...
+
+HomeView = Backbone.View.extend
+	el: '#primary-section'
+	template: require 'templates/questalot-home-template'
+	events: 
+		'click #send': 'saveMessage'
+	initialize: (message) ->
+		@collection = new MessageBoard()
+		@collection.bind 'all', @render, @
+		@collection.fetch()
+		@collection.on 'add', (message) ->
+			message.save(null, {
+				success: (message) ->
+					console.log 'Saved ' + message
+				error: (message) ->
+					console.log 'Error...'
+			})
+		console.log 'Saved ' + message
+	saveMessage: ->
+		username = $('#username').val()
+		message = $('#message').val()
+		@collection.add({
+			username: username
+			message: message
+		})
+	render: ->
+		html = @template
+		collection = @collection
+		$(@el).html html, collection
+
+# FooterView...
+
+FooterView = Backbone.View.extend
+	el: '#primary-footer'
+	template: require 'templates/questalot-footer-template'
+	initialize: ->
+		# ...
+	render: ->
+		html = @template
+		$(@el).html html
+
+# Multi-App Router...
+
 Workspace = Backbone.Router.extend
 	routes: 
-		'': 'questList'
-		# '': 'invoiceList'
-		'invoice': 'invoiceList'
-		'invoice/:id': 'invoicePage'
-		'previewInvoice': 'previewInvoice'
+		'': 'home'
+		# '*actions': 'home'
+		# 'invoice': 'invoiceList'
+		# 'invoice/:id': 'invoicePage'
+		# 'previewInvoice': 'previewInvoice'
+	initialize: ->
+		@headerView = new HeaderView()
+		@headerView.render()
+		@footerView = new FooterView()
+		@footerView.render()
+	home: ->
+		@homeView = new HomeView()
+		@homeView.render()
+	# Possible...
+	signup: ->
+		# ...
 	questList: ->
-		questListModel = QuestListModel
-			
+		# questListModel = new QuestListModel
 		questListView = new QuestListView 
 			el: $('#main')
 		questListView.render()
+	# The Billing App...
 	invoiceList: ->
 		invoiceListView = new InvoiceListView
 			el: $('#main')
