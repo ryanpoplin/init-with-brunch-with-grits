@@ -1,5 +1,3 @@
-# Include Questalot stuff...
-
 QuestListModel = require 'models/quest-list-model'
 QuestListCollection = require 'collections/quest-list-collection'
 QuestListView = require 'views/quest-list-view'
@@ -11,7 +9,7 @@ module.exports =
 InvoiceItemModel = Backbone.Model.extend
 	defaults: 
 		date: new Date()
-		description: 'Something Tech Related...'
+		description: 'Something Tech Related'
 		price: 0
 		quantity: 1
 	calculateAmount: ->
@@ -70,7 +68,10 @@ HeaderView = Backbone.View.extend
 
 HomeView = Backbone.View.extend
 	el: '#primary-section'
-	template: require 'templates/questalot-home-template'
+	template: '\
+		<table>\
+			<caption>Chat</caption>\
+		</table>'
 	events: 
 		'click #send': 'saveMessage'
 	initialize: (message) ->
@@ -95,7 +96,7 @@ HomeView = Backbone.View.extend
 	render: ->
 		html = @template
 		collection = @collection
-		$(@el).html html, collection
+		$(@el).html(html, collection)
 
 # FooterView...
 
@@ -155,7 +156,6 @@ Workspace = Backbone.Router.extend
 			price: 500
 			quantity: 5
 		console.log invoiceItemModel2.toJSON()
-		# Cheap commit...
 		invoiceItemModel3 = new InvoiceItemModel
 			price: 2500
 			quantity: 2
