@@ -1,7 +1,7 @@
 module.exports = 
 
 QuestModel = Parse.Object.extend 
-	className: 'GameScore'
+	className: 'QuestalotQuest'
 	defaults: 
 		title: 'Questalot Quest...'
 	getQuestTitle: ->
@@ -16,6 +16,8 @@ questModelOne = new QuestModel
 
 questModelOne.getQuestTitle()
 
+console.log questModelOne.get('title')
+
 console.log questModelOne
 
 ###
@@ -27,4 +29,38 @@ questModelOne.save null, {
 }
 ###
 
+questModelTwo = new QuestModel
+	title: 'Lantern Quest'
 
+###
+questModelTwo.save null, {
+	success: (questModelTwo) ->
+		console.log 'Object: ' + questModelTwo.id
+		objectId = questModelTwo.id
+		updatedAt = questModelTwo.updatedAt
+		createdAt = questModelTwo.createdAt
+		console.log objectId
+		console.log updatedAt
+		console.log createdAt
+	error: (questModelTwo, error) ->
+		console.log error.description
+}
+###
+
+###
+questQuery = new Parse.Query QuestModel
+
+questQuery.get 'gFPOrQ3FTG', {
+	success: (questModel) ->
+		console.log 'Yay...'
+	error: (questModel, error) ->
+		console.log error.description
+}
+###
+
+questModelTwo.fetch({
+	success: (questModelTwo) ->
+		console.log 'A refreshed model...'
+	error: (questModelTwo, error) ->
+		console.log error.description
+})
