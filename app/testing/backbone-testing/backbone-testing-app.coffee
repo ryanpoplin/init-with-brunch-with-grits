@@ -76,8 +76,7 @@ Workspace = Backbone.Router.extend
 			parkQuest
 			jazzQuest
 		])
-		console.log questCollection
 
 $ ->
 
-	new Workspace()
+	# new Workspace()
