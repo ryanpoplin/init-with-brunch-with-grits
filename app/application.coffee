@@ -1,4 +1,4 @@
-BackboneTesting = require 'testing/backbone-testing/backbone-testing-app'
+ParseTesting = require 'testing/questalot-parse-project/parse-app'
 
 class Application extends Backbone.Marionette.Application
   initialize: =>
