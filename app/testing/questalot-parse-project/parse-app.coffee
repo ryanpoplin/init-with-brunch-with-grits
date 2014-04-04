@@ -20,8 +20,6 @@ QuestModel = Parse.Object.extend
 questModelOne = new QuestModel
 	title: 'Zombie Quest'
 
-# questModelOne.save()
-
 ###
 questModelOne.getQuestTitle()
 
@@ -34,9 +32,20 @@ console.log questModelOne
 questModelOne.save null, {
 	success: (questModelOne) ->
 		console.log 'Object: ' + questModelOne.id
+		questId = questModelOne.id
 	error: (questModelOne, error) ->
 		console.log error.description
 }
+###
+
+###
+questModelOne.id = 'WLGO2qnBNx'
+questModelOne.destroy({
+	success: (questModelOne) ->
+		console.log 'Destroy...'
+	error: (questModelOne, error) ->
+		console.log error.description
+})
 ###
 
 ###
